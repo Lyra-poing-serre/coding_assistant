@@ -1,10 +1,6 @@
-from functions.files import get_files_info
+from functions.files import get_file_content
 
 
 if __name__ == "__main__":
-    for directory in [".", "pkg", "/bin", "../"]:
-        if directory == ".":
-            print("Result for current directory:")
-        else:
-            print(f"Result for '{directory}' directory:")
-        print(get_files_info("calculator", directory), end="\n\n")
+    for file in ["main.py", "pkg/calculator.py", "/bin/cat", "pkg/does_not_exist.py"]:
+        print(get_file_content("calculator", file), end="\n\n")
