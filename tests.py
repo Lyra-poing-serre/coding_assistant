@@ -1,6 +1,12 @@
-from functions.files import get_file_content
+from functions.run import run_python_file
 
 
 if __name__ == "__main__":
-    for file in ["main.py", "pkg/calculator.py", "/bin/cat", "pkg/does_not_exist.py"]:
-        print(get_file_content("calculator", file), end="\n\n")
+    for file, content in [
+        ("main.py", []),
+        ("main.py", ["3 + 5"]),
+        ("tests.py", []),
+        ("../main.py", []),
+        ("nonexistent.py", []),
+    ]:
+        print(run_python_file("calculator", file, content), end="\n\n")

@@ -45,3 +45,19 @@ def get_file_content(working_directory, file_path) -> str:
 
     except Exception as e:
         return f"Error: {e}"
+
+
+def write_file(working_directory, file_path, content) -> str:
+    working_directory = Path(working_directory).resolve()
+    file_path = working_directory.joinpath(file_path).resolve()
+
+    if not file_path.is_relative_to(working_directory):
+        return f'Error: Cannot write to "{str(file_path)}" as it is outside the permitted working directory'
+
+    try:
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        with file_path.open(mode="w", encoding="utf-8") as f:
+            f.write(content)
+        return f'Successfully wrote to "{str(file_path)}" ({len(content)} characters written)'
+    except Exception as e:
+        return f"Error: {e}"
